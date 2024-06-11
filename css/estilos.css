@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-uno: #114c5f;
+    --color-dos: #0799b6;
+    --color-tres: #9cd2d3;
+}
+
+body {
+    display: flex;
+
+}
+
+.navbar {
+    background-color: var(--color-uno);
+    width: 25%;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+.logo .logo-principal {
+    font-size: 40px;
+    color: var(--color-tres);
+}
+
+.logo span {
+    font-size: 1.5em;
+    padding: .5em 0;
+    color: white;
+}
+
+.navbar nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 3em;
+
+}
+
+.navbar nav a {
+    padding: 15px 2em;
+    text-decoration: none;
+    color: white;
+    font-size: 1em;
+}
+
+.navbar nav a:hover {
+    background-color: var(--color-tres);
+}
+
+.navbar nav a .logo-nav {
+    font-size: 1.6em;
+    margin-right: 10px;
+}
+
+.contenido {
+    width: 75%;
+    background-color: aqua;
+}
+
+
+
+/*         estilos pacientes      */
+
+.agregar {
+    width: 100%;
+    padding: 3em 2em;
+    display: flex;
+    justify-content: flex-end;
+    border-bottom: 2px solid black;
+}
+
+.agregar a {
+    background-color: var(--color-dos);
+    text-decoration: none;
+    padding: .7em 1em;
+    border-radius: 10px;
+    color: white;
+}
+
+.agregar a:hover {
+    background-color: var(--color-tres);
+    color: black;
+}
