@@ -26,15 +26,15 @@
     <form action="./agregar_paciente.php" method="post">
         <div class="nombre">
             <label for="nombre">Nombre</label>
-            <input type="text" name="nombre" id="nombre">
+            <input type="text" name="nombre" id="nombre" required pattern="[A-Za-z\s]+">
         </div>
         <div class="apellido">
             <label for="apellido">Apellido</label>
-            <input type="text" name="apellido" id="apellido">
+            <input type="text" name="apellido" id="apellido" required pattern="[A-Za-z\s]+">
         </div>
         <div class="fecha_nacimiento">
             <label for="fecha_nacimiento">Fecha de nacimiento</label>
-            <input type="text" name="fecha_nacimiento" id="fecha_nacimiento">
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
         </div>
         <div class="direccion">
             <label for="direccion">Direccion</label>
@@ -97,7 +97,7 @@
         </div>
         <div>
             <label for="num_afiliado">Numero de Afiliado</label>
-            <input type="text" name="num_afiliado" id="num_afiliado">
+            <input type="text"  pattern="\d*" name="num_afiliado" id="num_afiliado">
         </div>
         <div>
             <label>Tipo de sangre</label>
@@ -130,7 +130,7 @@
         </div>
         <div class="botones">
             <button class="guardar" type="submit">Guardar</button>
-            <button>
+            <button type="button">
             <a href="../index.php">Volver </a>
             </button>
             
