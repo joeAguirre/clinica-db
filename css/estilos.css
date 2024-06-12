@@ -72,7 +72,6 @@ body {
 
 .contenido {
     width: 75%;
-    background-color: aqua;
 }
 
 
@@ -98,4 +97,11 @@ body {
 .agregar a:hover {
     background-color: var(--color-tres);
     color: black;
+}
+
+
+/*                  formulario pacientes                 */
+
+.formulario-paciente {
+    background-color: red;
 }

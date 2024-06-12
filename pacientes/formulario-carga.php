@@ -1,5 +1,15 @@
 <?php
+     session_start();
+
      include_once('../conexion.php');
+?>
+
+<?php
+     if (isset($_SESSION['mensaje'])) {
+        echo '<p class="msg">' . htmlspecialchars($_SESSION['mensaje']) . '</p>';
+        
+        unset($_SESSION['mensaje']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -7,8 +17,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../css/estilos.css">
+    <title>Agregar Pacientes</title>
+    <link rel="stylesheet" href="../css/pacientes.css">
 </head>
 <body>
     <div class="formulario-paciente">
@@ -38,49 +48,94 @@
             <label for="email">Email</label>
             <input type="email" name="email" id="email">
         </div>
-        <?php  
-              $sql = "SELECT * FROM municipio";
-              $stmt = $conn->prepare($sql);
+        <div class="municipio">
+            <label for="email">Municipio</label>
+            <input type="text" name="municipio" id="municipio">
+        </div>
 
-              if($stmt->execute()) {
-                  $resultados = $stmt->fetchAll();
-              ?>
+        <div class="departamento">
+            <label for="email">Departamento</label>
+            <input type="text" name="departamento" id="departamento">
+        </div>
+          
         <div>
-            <label>Municipio</label>
-            <select name="municipio">
-               <?php   foreach ($resultados as $resultado) {  ?>
-                   <option value="<?php echo $resultado['id_municipio'] ?>"><?php echo $resultado['nombre'];  ?></option>
-             <?php     }
-              } else {
-                 echo "No se encontraron los municipios";
-              }
-           ?>
-
-            </select>
-          </div>
-        <div>
-            <label>Departamentos</label>
-            <select name="obras">Obras</select>
+            <label for="provincias">Provincias</label>
+            <input type="text" name="provincias" id="provincias">
         </div>
         <div>
-            <label>Provincias</label>
-            <select name="obras">Obras</select>
+            <label for="pais">Pais</label>
+            <input type="text" name="pais" id="pais">
         </div>
-        <div>
-            <label>Pais</label>
-            <select name="obras">Obras</select>
-        </div>
-        <div>
+        <div class="obra_social">
             <label>Obra Social</label>
-            <select name="obras">Obras</select>
+            <?php
+                     include_once('../conexion.php');
+
+                        $sql = "SELECT * FROM obra_social";
+                        $stmt = $conn->prepare($sql);
+
+                        if($stmt->execute()) {
+                           $resultados = $stmt->fetchAll(); 
+
+                          if ($resultados) {  ?>
+                          
+                   <select name="obra_social">
+                        <?php    foreach ($resultados as $resultado) {    ?>
+                           <option value="<?php echo $resultado['id_obra_social'] ?>"><?php echo $resultado['nombre']; ?></option>
+                        <?php    }     ?>
+                    </select>
+                         
+                        <?php } else {
+                               echo "No se encontraron los resultados";
+                           }
+                           
+                        } else {
+                            echo "Error al ejecutar la consulta";
+                        }
+                     
+                ?>
+        </div>
+        <div>
+            <label for="num_afiliado">Numero de Afiliado</label>
+            <input type="text" name="num_afiliado" id="num_afiliado">
         </div>
         <div>
             <label>Tipo de sangre</label>
-            <select name="tipo_sangre">
-                <option value="0">0+</option>
-            </select>
+            <?php
+                    include_once('../conexion.php');
+
+                    $sql = "SELECT * FROM tipo_sangre";
+                    $stmt = $conn->prepare($sql);
+
+                    if($stmt->execute()) {
+                        $resultados = $stmt->fetchAll(); 
+
+                        if ($resultados) {  ?>
+                        
+                <select name="tipo_sangre">
+                    <?php    foreach ($resultados as $resultado) {    ?>
+                        <option value="<?php echo $resultado['id_tipo_sangre'] ?>"><?php echo $resultado['nombre']; ?></option>
+                    <?php    }     ?>
+                </select>
+                        
+                    <?php } else {
+                            echo "No se encontraron los resultados";
+                        }
+                        
+                    } else {
+                        echo "Error al ejecutar la consulta";
+                    }
+                     
+                ?>
         </div>
-        <button type="submit">Guardar</button>
+        <div class="botones">
+            <button class="guardar" type="submit">Guardar</button>
+            <button>
+            <a href="../index.php">Volver </a>
+            </button>
+            
+        </div>
+        
     </form>
     </div>
     
