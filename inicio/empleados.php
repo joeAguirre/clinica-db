@@ -1,12 +1,11 @@
-
 <?php   
      include_once('./scripts/btn-opciones.php');
 
-    $titulo = "Administrar Pacientes";
+    $titulo = "Administrar Empleados";
 
-    $agregar = "Agregar Pacientes";
+    $agregar = "Agregar Empleados";
 
-    $buscar = "Buscar Pacientes";
+    $buscar = "Buscar Empleados";
 
     seccionDerecha($titulo, $agregar, $buscar);
 

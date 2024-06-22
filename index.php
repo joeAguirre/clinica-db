@@ -12,9 +12,17 @@
             case 'pacientes':
                 include_once('./inicio/pacientes.php');
                 break;
+
+            case 'medicos':
+                include_once('./inicio/medicos.php');
+                break;
+
+            case 'empleados':
+                include_once('./inicio/empleados.php');
+                break;
                 
             default:
-                # code...
+                echo "No se encontro la pagina solicitada";
                 break;
         }
     }

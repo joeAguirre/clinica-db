@@ -16,7 +16,7 @@ body {
 }
 
 .navbar {
-    background-color: var(--color-uno);
+    /* background-color: var(--color-uno); */
     width: 25%;
     height: 100vh;
     position: sticky;
@@ -25,6 +25,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: red;
 }
 
 .logo {
@@ -44,6 +45,7 @@ body {
     font-size: 1.5em;
     padding: .5em 0;
     color: white;
+    background-color: red;
 }
 
 .navbar nav {
@@ -59,6 +61,7 @@ body {
     text-decoration: none;
     color: white;
     font-size: 1em;
+    background-color: rebeccapurple;
 }
 
 .navbar nav a:hover {
@@ -72,6 +75,62 @@ body {
 
 .contenido {
     width: 75%;
+    background-color: red;
+}
+
+.titulo {
+    background-color: var(--color-uno);
+    height: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+
+.contenido .seccion-derecha {
+    display: flex;
+    height: calc(100vh - 4em);
+    align-items: center;
+    justify-content: center;
+}
+
+
+.contenido .seccion-derecha .grupo-opciones {
+    display: flex;
+    width: 70%;
+    justify-content: center;
+    column-gap: 7%;
+}
+
+.contenido .seccion-derecha .opciones {
+    width: 35%;
+    height: 40vh;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--color-uno);
+    color: white;
+}
+
+.contenido .seccion-derecha .opciones:hover {
+    background-color: var(--color-tres);
+    color: black;
+}
+
+.contenido .seccion-derecha .opciones i {
+    font-size: 3.5em;
+    background-color: green;
+}
+
+.contenido .seccion-derecha .opciones a {
+   margin-top: .4em;
+   font-size: 24px;
+   font-weight: 800;
+   background-color: red;
 }
 
 
@@ -99,9 +158,3 @@ body {
     color: black;
 }
 
-
-/*                  formulario pacientes                 */
-
-.formulario-paciente {
-    background-color: red;
-}
