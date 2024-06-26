@@ -1,5 +1,5 @@
 <?php   
-     include_once('./scripts/btn-opciones.php');
+     include('./scripts/btn-opciones.php');
 
     $titulo = "Administrar Empleados";
 

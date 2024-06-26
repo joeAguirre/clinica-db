@@ -1,5 +1,5 @@
 <?php   
-     include_once('./scripts/btn-opciones.php');
+     include('./scripts/btn-opciones.php');
 
     $titulo = "Administrar Medicos";
 
@@ -7,6 +7,8 @@
 
     $buscar = "Buscar Medicos";
 
-    seccionDerecha($titulo, $agregar, $buscar);
+    $url_agregar = "medicos/agregar_medicos.php";
+
+    seccionDerecha($titulo, $agregar, $buscar, $url_agregar);
 
 ?>
