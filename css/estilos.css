@@ -158,3 +158,32 @@ a {
     color: black;
 }
 
+
+/*             inicio                  */
+
+.button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn-custom {
+    width: 200px;
+    height: 100px;
+    margin: 20px;
+    font-size: 18px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-color: #007b8a;
+    border: none;
+    cursor: pointer;
+}
+.btn-custom:hover {
+    background-color: #005f66;
+}
+

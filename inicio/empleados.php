@@ -7,6 +7,8 @@
 
     $buscar = "Buscar Empleados";
 
-    seccionDerecha($titulo, $agregar, $buscar);
+    $url_agregar = "empleados/carga-empleados.php";
+
+    seccionDerecha($titulo, $agregar, $buscar, $url_agregar);
 
 ?>

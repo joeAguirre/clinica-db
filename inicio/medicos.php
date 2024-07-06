@@ -9,6 +9,8 @@
 
     $url_agregar = "medicos/agregar_medicos.php";
 
-    seccionDerecha($titulo, $agregar, $buscar, $url_agregar);
+    $url_buscar = "medicos/buscar_medicos.php";
+
+    seccionDerecha($titulo, $agregar, $buscar, $url_agregar, $url_buscar);
 
 ?>

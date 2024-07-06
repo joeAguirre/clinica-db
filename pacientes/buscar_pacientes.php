@@ -33,10 +33,11 @@
   <div class="container search-container">
         <div class="search-bar search-box text-center">
             <h2 class="mb-5">Buscar Pacientes</h2>
-            <form method="POST" class="d-flex">
+            <form method="POST" class="d-flex justify-content-center mb-3">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" name="numero_afiliado">
                 <button class="btn btn-outline-light" type="submit">Buscar</button>
             </form>
+            <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
         </div>
 
 
@@ -50,7 +51,7 @@
             try {
                 // Preparar consulta SQL con parámetros nombrados
                 $stmt = $conn->prepare("
-                    SELECT nombre, apellido, pacientes.numero_afiliado
+                    SELECT nombre, apellido, pacientes.numero_afiliado,pacientes.id_paciente
                     FROM personas
                     JOIN pacientes ON personas.id_persona = pacientes.id_persona
                     WHERE pacientes.numero_afiliado = :numero_afiliado
@@ -69,11 +70,17 @@
                 if ($stmt->rowCount() > 0) {
                     echo "<ul class='list-group'>";
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo "<li class='list-group-item'>Nombre: " . htmlspecialchars($row['nombre']) . " " . htmlspecialchars($row['apellido']) . " - Número de afiliado: " . htmlspecialchars($row['numero_afiliado']) . "</li>";
+                        echo "<li class='list-group-item d-flex justify-content-between align-items-center'>";
+                        echo "Nombre: " . htmlspecialchars($row['nombre']) . " " . htmlspecialchars($row['apellido']) . " - Número de afiliado: " . htmlspecialchars($row['numero_afiliado']);
+                        echo "<form method='post' action='cita_medica.php' class='d-inline'>";
+                        echo "<input type='hidden' name='paciente_id' value='" . htmlspecialchars($row['id_paciente']) . "'>";
+                        echo "<button type='submit' class='btn btn-success btn-sm'>Reservar cita médica</button>";
+                        echo "</form>";
+                        echo "</li>";
                     }
                     echo "</ul>";
                 } else {
-                    echo "<p>No se encontraron resultados</p>";
+                    echo "<p class='mt-3 text-warning'>No se encontraron resultados</p>";
                 }
                 echo "</div>";
 

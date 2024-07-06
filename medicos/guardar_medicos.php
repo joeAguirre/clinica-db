@@ -14,6 +14,7 @@ session_start();
     $telefono = $_POST['telefono'] ?? null;
     $email = $_POST['email'] ?? null;
     $especialidad = $_POST['especialidad'];
+    $codigo_medico = $_POST['codigo_medico'];
 
 
     $sql_personas = "INSERT INTO personas (nombre, apellido, fecha_nacimiento, direccion, telefono, email)
@@ -23,8 +24,8 @@ session_start();
     $sql_empleados = "INSERT INTO empleados (id_persona) VALUES (:id_persona)";
 
     
-    $sql_medicos = "INSERT INTO medicos (empleado_id, especialidad)
-                    VALUES (:empleado_id, :especialidad)";
+    $sql_medicos = "INSERT INTO medicos (empleado_id, especialidad, codigo_medico)
+                    VALUES (:empleado_id, :especialidad, :codigo_medico)";
 
     try {
         // Iniciar una transacción
@@ -37,7 +38,8 @@ session_start();
         $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
         $stmt->bindParam(':direccion', $direccion);
         $stmt->bindParam(':telefono', $telefono);
-        $stmt->bindParam(':email', $email);$stmt->execute();
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
 
      
         $persona_id = $conn->lastInsertId(); 
@@ -53,6 +55,7 @@ session_start();
         $stmt = $conn->prepare($sql_medicos);
         $stmt->bindParam(':empleado_id', $empleado_id);
         $stmt->bindParam(':especialidad', $especialidad);
+        $stmt->bindParam(':codigo_medico', $codigo_medico);
         $stmt->execute();
 
        
