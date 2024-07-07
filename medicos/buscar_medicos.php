@@ -79,7 +79,6 @@
                     echo '<td>' . htmlspecialchars($medico['especialidad']) . '</td>';
                     echo '<td>';
                     echo '<a href="./disponibilidad_medicos.php' . '" class="btn btn-info btn-sm text-white">Configurar Disponibilidad</a> ';
-                    echo '<a href="solicitar_licencia.php?codigo_medico=' . htmlspecialchars($medico['codigo_medico']) . '" class="btn btn-warning btn-sm">Solicitar Licencia</a>';
                     echo '</td>';
                     echo '</tr>';
                 }

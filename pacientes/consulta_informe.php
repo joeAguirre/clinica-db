@@ -41,7 +41,11 @@ $conn = null;
    <div class='container'>
          <h2 class='mt-4 text-center'>Informe de Citas Médicas desde <?php echo $fecha_inicio . " hasta " . $fecha_fin ?></h2>
          <div class='mb-5 mt-3'>
-         <button class='btn btn-primary'>Generar Excel</button>
+         <form action="./generar_pdf.php" method="post">
+            <input type="hidden" name="inicio" value="$fecha_inicio">
+            <input type="hidden" name="fin" value="$fecha_fin">
+            <button class="btn btn-primary">Generar PDF</button>
+         </form>
          </div>
 
          <table class='table table-striped table-hover'>

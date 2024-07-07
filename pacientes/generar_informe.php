@@ -9,7 +9,7 @@
 <body>
     <div class="container mt-5">
         <h2>Generar Informe de Citas Médicas</h2>
-        <form action="procesar_informe.php" method="post">
+        <form action="consulta_informe.php" method="post">
             <div class="mb-3">
                 <label for="fecha_inicio" class="form-label">Fecha de Inicio</label>
                 <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>

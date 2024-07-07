@@ -1,6 +1,19 @@
 <?php
     session_start();
    
+    $especialidades = [
+        'cardiologia', 
+        'dermatologia', 
+        'neurologia', 
+        'pediatria', 
+        'oftalmologia', 
+        'ginecologia', 
+        'psiquiatria', 
+        'endocrinologia', 
+        'traumatologia', 
+        'oncologia'
+    ];
+    
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +82,13 @@
             </div>
             <div class="mb-3">
                 <label for="especialidad" class="form-label">Especialidad</label>
-                <input type="text" class="form-control" id="especialidad" name="especialidad" required>
+                <?php 
+                echo "<select class='form-select' name='especialidad' id='especialidad'>";
+                foreach ($especialidades as $especialidad) {
+                    echo "<option value='$especialidad'>$especialidad</option>";
+                } 
+                echo "</select>";
+                ?>
             </div>
             <div class="mb-3">
                 <label for="codigo_medico" class="form-label">Codigo Medico</label>
