@@ -1,6 +1,7 @@
 <?php
 // Incluir archivo de conexión a la base de datos
 include_once('../conexion.php');
+include_once('../funciones/funcion-guardar.php');
 
 session_start();
 
@@ -15,48 +16,37 @@ session_start();
     $email = $_POST['email'] ?? null;
     $especialidad = $_POST['especialidad'];
     $codigo_medico = $_POST['codigo_medico'];
+    $pais = $_POST['pais'] ?? null;
+    $provincia = $_POST['provincia'] ?? null;
+    $departamento = $_POST['departamento'] ?? null;
+    $municipio = $_POST['municipio'] ?? null;
 
-
-    $sql_personas = "INSERT INTO personas (nombre, apellido, fecha_nacimiento, direccion, telefono, email)
-                     VALUES (:nombre, :apellido, :fecha_nacimiento, :direccion, :telefono, :email)";
-
-    
-    $sql_empleados = "INSERT INTO empleados (id_persona) VALUES (:id_persona)";
-
-    
-    $sql_medicos = "INSERT INTO medicos (empleado_id, especialidad, codigo_medico)
-                    VALUES (:empleado_id, :especialidad, :codigo_medico)";
 
     try {
         // Iniciar una transacción
         $conn->beginTransaction();
 
-        // Insertar primero en la tabla personas
-        $stmt = $conn->prepare($sql_personas);
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':apellido', $apellido);
-        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
-        $stmt->bindParam(':direccion', $direccion);
-        $stmt->bindParam(':telefono', $telefono);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        // Insertar en la tabla paises
+        $id_pais = insertarPais($conn, $pais);
 
-     
-        $persona_id = $conn->lastInsertId(); 
+        // Insertar en la tabla provincias
+        $id_provincia = insertarProvincia($conn, $provincia, $id_pais);
+
+        // Insertar en la tabla departamentos
+        $id_departamento = insertarDepartamento($conn, $departamento, $id_provincia);
+
+        // Insertar en la tabla municipios
+        $id_municipio = insertarMunicipio($conn, $municipio, $id_departamento);
+
+        // Insertar en la tabla personas
+        $persona_id = insertarPersona($conn, $nombre, $apellido, $fecha_nacimiento, $direccion, $telefono, $email, null); 
 
         // Insertar en la tabla empleados 
-        $stmt = $conn->prepare($sql_empleados);
-        $stmt->bindParam(':id_persona', $persona_id);
-        $stmt->execute();
-        $empleado_id = $conn->lastInsertId(); 
+        $empleado_id = insertarEmpleado($conn, $persona_id);
 
 
      // Insertar en la tabla medicos 
-        $stmt = $conn->prepare($sql_medicos);
-        $stmt->bindParam(':empleado_id', $empleado_id);
-        $stmt->bindParam(':especialidad', $especialidad);
-        $stmt->bindParam(':codigo_medico', $codigo_medico);
-        $stmt->execute();
+        $medico_id = insertarMedico($conn, $empleado_id, $especialidad, $codigo_medico);
 
        
         $conn->commit();
@@ -64,7 +54,7 @@ session_start();
         $_SESSION['mensaje'] = "Médico registrado correctamente.";
 
         //redirigir 
-        header("location:./agregar_medicos.php");
+         header("location:./agregar_medicos.php");
 
     } catch (PDOException $e) {
         
@@ -76,7 +66,6 @@ session_start();
     $conn = null;
 
 } else {
-    // Si no se reciben datos por POST, redirigir o mostrar un mensaje de error
     echo "Error: No se recibieron datos por POST.";
 } 
 ?>

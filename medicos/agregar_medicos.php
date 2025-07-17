@@ -1,18 +1,18 @@
 <?php
     session_start();
+
+    include_once('../conexion.php');
    
-    $especialidades = [
-        'cardiologia', 
-        'dermatologia', 
-        'neurologia', 
-        'pediatria', 
-        'oftalmologia', 
-        'ginecologia', 
-        'psiquiatria', 
-        'endocrinologia', 
-        'traumatologia', 
-        'oncologia'
-    ];
+
+    $sql = "SELECT id_especialidad, nombre FROM especialidades";
+
+    $stmt = $conn->query($sql);
+
+    $especialidades = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    
+    
+
     
 ?>
 
@@ -56,25 +56,31 @@
     <div class="container formulario-medico">
         <h2 class="text-center">Agregar Médico</h2>
         <form action="./guardar_medicos.php" method="post">
-            <div class="mb-3">
+            <div class="row">
+                 <div class="mb-3 col-md-6">
                 <label for="nombre" class="form-label">Nombre</label>
                 <input type="text" class="form-control" id="nombre" name="nombre" required pattern="[A-Za-z\s]+">
             </div>
-            <div class="mb-3">
+            <div class="mb-3 col-md-6">
                 <label for="apellido" class="form-label">Apellido</label>
                 <input type="text" class="form-control" id="apellido" name="apellido" required pattern="[A-Za-z\s]+">
             </div>
+            </div>
+           
             <div class="mb-3">
                 <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento</label>
                 <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
             </div>
-            <div class="mb-3">
-                <label for="direccion" class="form-label">Dirección</label>
-                <input type="text" class="form-control" id="direccion" name="direccion">
-            </div>
-            <div class="mb-3">
-                <label for="telefono" class="form-label">Teléfono</label>
-                <input type="text" class="form-control" id="telefono" name="telefono">
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion">
+                </div>
+                
+                <div class="mb-3 col-md-6">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono">
+                </div>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -83,17 +89,51 @@
             <div class="mb-3">
                 <label for="especialidad" class="form-label">Especialidad</label>
                 <?php 
-                echo "<select class='form-select' name='especialidad' id='especialidad'>";
-                foreach ($especialidades as $especialidad) {
-                    echo "<option value='$especialidad'>$especialidad</option>";
-                } 
-                echo "</select>";
+                   echo '<select class="form-select" id="especialidad" name="especialidad">';
+
+                  if (isset($especialidades) && count($especialidades) > 0) {
+                    foreach ($especialidades as $especialidad) {
+                      echo '<option value="' . ($especialidad['id_especialidad']) . '">';
+                      echo htmlspecialchars($especialidad['nombre']);
+                      echo '</option>';
+                      
+                        
+                    }
+                    
+                  } else {
+                    echo '  <option value="">No hay especialidades disponibles</option>';
+                  }
+
+                  echo '</select>';
+
+                
+                  
                 ?>
             </div>
             <div class="mb-3">
                 <label for="codigo_medico" class="form-label">Codigo Medico</label>
                 <input type="text" class="form-control" id="codigo_medico" name="codigo_medico" required>
             </div>
+            
+            <div class="row">
+                <div class="mb-3 col-md-6">
+                    <label for="pais" class="form-label">País</label>
+                    <input type="text" class="form-control" id="pais" name="pais">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="provincia" class="form-label">Provincia</label>
+                    <input type="text" class="form-control" id="provincia" name="provincia">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="departamento" class="form-label">Departamento</label>
+                    <input type="text" class="form-control" id="departamento" name="departamento">
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="municipio" class="form-label">Municipio</label>
+                    <input type="text" class="form-control" id="municipio" name="municipio">
+                </div>
+            </div>
+
             <div class="mb-3">
                 <button type="submit" class="btn btn-primary">Guardar</button>
                 <a href="../index.php" class="btn btn-secondary">Volver</a>

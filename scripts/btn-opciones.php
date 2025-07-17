@@ -1,6 +1,5 @@
 <?php 
 
-
    function seccionDerecha($titulo, $agregar, $buscar, $url_agregar="#", $url_buscar="#") {   ?>
 
         <div class="titulo">
