@@ -111,11 +111,12 @@ function insertarPaciente($conn, $id_persona, $id_obra_social, $numero_afiliado,
 }
 
 //INSERTAR EMPLEADO
-function insertarEmpleado($conn, $persona_id) {
+function insertarEmpleado($conn, $persona_id, $estado) {
     try {
-        $sql = "INSERT INTO empleados (id_persona) VALUES (:id_persona)";
+        $sql = "INSERT INTO empleados (id_persona, estado) VALUES (:id_persona, :estado)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id_persona', $persona_id);
+        $stmt->bindParam(':estado', $estado);
         $stmt->execute();
         return $conn->lastInsertId();
     } catch (PDOException $e) {

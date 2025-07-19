@@ -1,42 +1,58 @@
 <?php
 session_start();
 require '../conexion.php'; 
+include_once('../funciones/funcion-guardar.php');
 
 
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    try {
+     // Datos de persona
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $fecha_nacimiento = $_POST['fecha_nacimiento'];
+    $direccion = $_POST['direccion'];
+    $telefono = $_POST['telefono'];
+    $email = $_POST['email'];
 
-        $sql_persona = "INSERT INTO personas (nombre, apellido, fecha_nacimiento, direccion, telefono, email)
-                        VALUES (:nombre, :apellido, :fecha_nacimiento, :direccion, :telefono, :email)";
-        $stmt_persona = $conn->prepare($sql_persona);
+    // Datos de empleado
+    $estado = $_POST['estado'];
+
+    // Datos de ubicación
+    $pais = $_POST['pais'] ?? null;
+    $provincia = $_POST['provincia'] ?? null;
+    $departamento = $_POST['departamento'] ?? null;
+    $municipio = $_POST['municipio'] ?? null;
+
+
+    try {
+         $conn->beginTransaction();
+
+        // Insertar en la tabla paises
+        $id_pais = insertarPais($conn, $pais);
+
+        // Insertar en la tabla provincias
+        $id_provincia = insertarProvincia($conn, $provincia, $id_pais);
+
+        // Insertar en la tabla departamentos
+        $id_departamento = insertarDepartamento($conn, $departamento, $id_provincia);
+
+        // Insertar en la tabla municipios
+        $id_municipio = insertarMunicipio($conn, $municipio, $id_departamento);
     
-        
-        $stmt_persona->execute([
-            ':nombre' => $_POST['nombre'],
-            ':apellido' => $_POST['apellido'],
-            ':fecha_nacimiento' => $_POST['fecha_nacimiento'],
-            ':direccion' => $_POST['direccion'],
-            ':telefono' => $_POST['telefono'],
-            ':email' => $_POST['email'],
-        ]);
+        // Insertar en la tabla personas
+        $persona_id = insertarPersona($conn, $nombre, $apellido, $fecha_nacimiento, $direccion, $telefono, $email, $id_municipio);
     
-        $persona_id = $conn->lastInsertId();
+        // Insertar en la tabla empleados
+        $id_empleado = insertarEmpleado($conn, $persona_id, $estado);
     
-        $sql_empleado = "INSERT INTO empleados ( id_persona, codigo_empleado, estado)
-                         VALUES (:id_persona, :codigo_empleado, :estado)";
-        $stmt_empleado = $conn->prepare($sql_empleado);
-    
-        $stmt_empleado->execute([
-            ':id_persona' => $persona_id,
-            ':codigo_empleado' => $_POST['codigo_empleado'],
-            ':estado' => $_POST['estado'],
-        ]);
-    
+        $conn->commit();
         // Establecer un mensaje de éxito en la sesión
         $_SESSION['mensaje'] = "Empleado agregado exitosamente.";
     
-    } catch (PDOException $e) {
+    } catch (Throwable $e) {
+        if ($conn && $conn->inTransaction()) {
+            $conn->rollback();
+        }
         $_SESSION['mensaje'] = "Error al agregar el empleado: " . $e->getMessage();
     }
 } else {

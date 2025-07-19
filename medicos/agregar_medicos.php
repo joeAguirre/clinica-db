@@ -114,6 +114,13 @@
                 <label for="codigo_medico" class="form-label">Codigo Medico</label>
                 <input type="text" class="form-control" id="codigo_medico" name="codigo_medico" required>
             </div>
+            <!-- <div class="mb-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select class="form-select" id="estado" name="estado" required>
+                    <option value=1>Activo</option>
+                    <option value=0>Inactivo</option>
+                </select>
+            </div> -->
             
             <div class="row">
                 <div class="mb-3 col-md-6">

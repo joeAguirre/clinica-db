@@ -5,6 +5,11 @@ include_once('../funciones/funcion-guardar.php');
 
 session_start();
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+
 
  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -16,6 +21,7 @@ session_start();
     $email = $_POST['email'] ?? null;
     $especialidad = $_POST['especialidad'];
     $codigo_medico = $_POST['codigo_medico'];
+    $estado = $_POST['estado'] ?? 1; // Por defecto activo
     $pais = $_POST['pais'] ?? null;
     $provincia = $_POST['provincia'] ?? null;
     $departamento = $_POST['departamento'] ?? null;
@@ -42,7 +48,7 @@ session_start();
         $persona_id = insertarPersona($conn, $nombre, $apellido, $fecha_nacimiento, $direccion, $telefono, $email, null); 
 
         // Insertar en la tabla empleados 
-        $empleado_id = insertarEmpleado($conn, $persona_id);
+        $empleado_id = insertarEmpleado($conn, $persona_id, $estado);
 
 
      // Insertar en la tabla medicos 
@@ -56,11 +62,14 @@ session_start();
         //redirigir 
          header("location:./agregar_medicos.php");
 
-    } catch (PDOException $e) {
-        
-        $conn->rollback();
-        echo "Error: " . $e->getMessage();
-    }
+    } catch (Throwable $e) {
+     if ($conn && $conn->inTransaction()) {
+            $conn->rollback();
+        }
+    $_SESSION['mensaje'] = "Error al registrar medico: " . $e->getMessage();
+    header("location:./agregar_medicos.php");
+    exit();
+}
 
     // Cerrar la conexión
     $conn = null;
