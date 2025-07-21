@@ -69,11 +69,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['busqueda'])) {
                 <ul class="list-group">
                     <?php foreach ($empleados as $empleado): ?>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <?php echo htmlspecialchars($empleado['nombre'] . ' ' . $empleado['apellido']); ?>
-                            <form method="POST" action="solicitar_licencia.php" class="mb-0">
-                            <input type="hidden" name="empleado_id" value="<?php echo $empleado['empleado_id']; ?>">
-                            <button type="submit" class="btn btn-sm btn-warning">Solicitar licencia</button>
-                        </form>
+                             <?php echo htmlspecialchars($empleado['nombre'] . ' ' . $empleado['apellido']); ?>
+                            <div class="btn-group">
+                               <form method="POST" action="solicitar_licencia.php" class="mb-0">
+                                <input type="hidden" name="empleado_id" value="<?php echo $empleado['empleado_id']; ?>">
+                                <button type="submit" class="btn btn-sm btn-warning">Solicitar licencia</button>
+                                </form>
+                                <a href="ver_cronograma.php?empleado_id=<?php echo $empleado['empleado_id']; ?>" class="btn btn-sm btn-info mx-2">
+                                    Ver cronograma
+                                </a>
+                            </div>
+                           
+                            
                         </li>
                     <?php endforeach; ?>
                 </ul>

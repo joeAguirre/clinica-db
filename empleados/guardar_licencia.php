@@ -30,10 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['empleado_id'])) {
             $stmt_sust->execute();
         }
 
+          $conn->commit();
 
          $_SESSION['mensaje'] = "Solicitud de licencia registrada correctamente.";
           $_SESSION['tipo_mensaje'] = "success";
-    } catch (PDOException $e) {
+    } catch (Throwable $e) {
+          if ($conn && $conn->inTransaction()) {
+            $conn->rollback();
+        }
          $_SESSION['mensaje'] = "Error al registrar licencia: " . $e->getMessage();
          $_SESSION['tipo_mensaje'] = "danger";
     }

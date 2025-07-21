@@ -1,5 +1,5 @@
 <?php   
-     include('./scripts/btn-opciones.php');
+     include('./funciones/btn-opciones.php');
 
     $titulo = "Administrar Empleados";
 
@@ -7,9 +7,9 @@
 
     $buscar = "Buscar Empleados";
 
-    $url_agregar = "empleados/carga-empleados.php";
+    $url_agregar = "/empleados/carga-empleados.php";
 
-    $url_buscar = "empleados/buscar_empleados.php";
+    $url_buscar = "/empleados/buscar_empleados.php";
 
     seccionDerecha($titulo, $agregar, $buscar, $url_agregar, $url_buscar);
 
