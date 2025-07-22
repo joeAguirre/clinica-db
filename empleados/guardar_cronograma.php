@@ -2,6 +2,8 @@
 session_start();
 include('../conexion.php');
 
+include_once('../sesiones/verificar_acesso.php');
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_empleado = intval($_POST['id_empleado']);
     $horarios = $_POST['horario'] ?? [];

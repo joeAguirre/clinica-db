@@ -1,6 +1,8 @@
 <?php
-session_start();
-include_once('../conexion.php');
+   session_start();
+   include_once('../conexion.php');
+
+   include_once('../sesiones/verificar_acesso.php');
 ?>
 
 <!DOCTYPE html>

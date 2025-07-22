@@ -1,6 +1,8 @@
 <?php
 session_start();
 require '../conexion.php'; 
+
+include_once('../sesiones/verificar_acesso.php');
 include_once('../funciones/funcion-guardar.php');
 
 
