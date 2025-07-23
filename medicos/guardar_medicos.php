@@ -1,4 +1,7 @@
 <?php
+ session_start();
+ include_once('../sesiones/verificar_acesso.php');
+
 // Incluir archivo de conexión a la base de datos
 include_once('../conexion.php');
 include_once('../funciones/funcion-guardar.php');

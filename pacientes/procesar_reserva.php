@@ -1,4 +1,7 @@
 <?php
+    session_start();
+    include_once('../sesiones/verificar_acesso.php');
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paciente_id = $_POST['paciente_id'];
     $medico_id = $_POST['medico_id'];

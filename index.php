@@ -1,5 +1,23 @@
 <?php
+    session_start();
     define('BASE_URL', '/programacion/clinica-db-2');
+
+    if (!isset($_SESSION['usuario_id']) || !isset($_SESSION['username'])) {
+        // Si no hay usuario logueado, redirigir al login
+        header('Location: ' . BASE_URL . '/sesiones/login.php');
+        exit;
+    }
+
+    if(isset($_SESSION['rol'])){
+        if($_SESSION['rol'] === "paciente"){
+            header("Location: " . BASE_URL . '/pacientes/buscar_pacientes.php');
+            exit;
+        }
+    }
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
 
 ?>
 
@@ -22,23 +40,32 @@
         </div>
 
         <nav>
-            <a href="index.php?page=inicio">
-               <i class="fa-solid fa-house logo-nav"></i>
-                Inicio
-            </a>
-            <a href="index.php?page=pacientes">
-               <i class="fa-solid fa-person-circle-plus logo-nav"></i>
-                Pacientes
-            </a>
+            <?php if ($_SESSION['rol'] === 'admin'): ?>
+                <a href="index.php?page=inicio">
+                <i class="fa-solid fa-house logo-nav"></i>
+                    Inicio
+                </a>
+            <?php endif; ?>
+            <?php if ($_SESSION['rol'] === 'admin' || $_SESSION['rol'] === 'medico'): ?>
+                <a href="index.php?page=pacientes">
+                <i class="fa-solid fa-person-circle-plus logo-nav"></i>
+                    Pacientes
+                </a>
+            <?php endif; ?>
 
-             <a href="index.php?page=medicos">
-                <i class="fa-solid fa-user-doctor logo-nav"></i>
-                Medicos
-            </a>
-            <a href="index.php?page=empleados">
-                <i class="fa-solid fa-user-tie logo-nav"></i>
-                Empleados
-            </a>
+            <?php if ($_SESSION['rol'] === 'admin'): ?>
+                <a href="index.php?page=medicos">
+                    <i class="fa-solid fa-user-doctor logo-nav"></i>
+                    Medicos
+                </a>
+            <?php endif; ?>
+
+            <?php if ($_SESSION['rol'] === 'admin'): ?>
+                <a href="index.php?page=empleados">
+                    <i class="fa-solid fa-user-tie logo-nav"></i>
+                    Empleados
+                </a>
+            <?php endif; ?>
         </nav>
     </div>
     
@@ -52,7 +79,9 @@
 
         switch ($page) {
             case 'inicio':
-                include_once('./inicio/inicio.php');
+                if ($_SESSION['rol'] === 'admin'):
+                  include_once('./inicio/inicio.php');
+                endif;
                 break;
             
             case 'pacientes':
@@ -60,11 +89,15 @@
                 break;
 
             case 'medicos':
-                include('./inicio/medicos.php');
+                if ($_SESSION['rol'] === 'admin'):
+                   include('./inicio/medicos.php');
+                endif; 
                 break;
 
             case 'empleados':
-                include('./inicio/empleados.php');
+                if ($_SESSION['rol'] === 'admin'):
+                   include('./inicio/empleados.php');
+                endif; 
                 break;
                 
             default:

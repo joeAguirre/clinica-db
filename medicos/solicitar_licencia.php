@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    include_once('../sesiones/verificar_acesso.php');
+
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

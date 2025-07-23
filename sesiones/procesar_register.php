@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($success) {
             $_SESSION['mensaje'] = "Usuario registrado correctamente.";
             $_SESSION['tipo_mensaje'] = "success";
-            header("Location: register.php");
+            header("Location: login.php");
             exit;
         }
     } catch (\Throwable $th) {

@@ -1,5 +1,9 @@
 <?php
-     session_start();
+     
+     ini_set('display_errors', 1);
+     ini_set('display_startup_errors', 1);
+     error_reporting(E_ALL);
+
      include_once('../sesiones/verificar_acesso.php');
 ?>
 
@@ -25,7 +29,6 @@
     <div class="container formulario-busqueda">
         <h2 class="text-center">Buscar Médico</h2>
         <?php
-        session_start();
         
         if (isset($_SESSION['mensaje_error'])) {
             echo '<div class="alert alert-danger text-center">' . htmlspecialchars($_SESSION['mensaje_error']) . '</div>';

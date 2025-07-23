@@ -1,8 +1,9 @@
 <?php
+    include_once('../sesiones/verificar_acesso.php');
+
+
     include_once('../conexion.php');
     include_once('../funciones/funcion-guardar.php');
-
-    session_start();
 
     if($_SERVER['REQUEST_METHOD'] == "POST") {
 
