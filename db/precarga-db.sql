@@ -31,6 +31,28 @@ INSERT INTO dias_semana (id_dia, nombre) VALUES
 (2, 'Martes'),
 (3, 'Miércoles'),
 (4, 'Jueves'),
-(5, 'Viernes'),
-(6, 'Sábado'),
-(7, 'Domingo');
+(5, 'Viernes')
+
+/* precarga roles */
+INSERT INTO roles (nombre) VALUES
+('admin'),
+('medico'),
+('paciente');
+
+/* cargar una persona */
+INSERT INTO personas (
+  nombre,
+  apellido,
+  fecha_nacimiento,
+  direccion,
+  telefono,
+  email
+) VALUES (
+  'Juanito',
+  'Pérez',
+  '1990-05-15',
+  'Calle Falsa 123',
+  '1234567890',
+  'juanito@example.com'
+);
+

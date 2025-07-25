@@ -1,6 +1,6 @@
 <?php
     session_start();
-    define('BASE_URL', '/programacion/clinica-db-2');
+    define('BASE_URL', '/programacion/clinica-db');
 
     if (!isset($_SESSION['usuario_id']) || !isset($_SESSION['username'])) {
         // Si no hay usuario logueado, redirigir al login

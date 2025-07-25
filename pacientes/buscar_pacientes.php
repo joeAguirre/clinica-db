@@ -34,6 +34,7 @@ error_reporting(E_ALL);
         }
         .result-list {
             margin-top: 20px;
+            width: 80%;
         }
     </style>
 </head>
@@ -79,11 +80,29 @@ error_reporting(E_ALL);
                     echo "<ul class='list-group'>";
                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                         echo "<li class='list-group-item d-flex justify-content-between align-items-center'>";
-                        echo "Nombre: " . htmlspecialchars($row['nombre']) . " " . htmlspecialchars($row['apellido']) . " - Número de afiliado: " . htmlspecialchars($row['numero_afiliado']);
-                        echo "<form method='post' action='cita_medica.php' class='d-inline'>";
+                        echo "Nombre: " . htmlspecialchars($row['nombre']) . " " . htmlspecialchars($row['apellido']) . " - N° afiliado: " . htmlspecialchars($row['numero_afiliado']);
+                        
+                        echo "<div class='d-flex gap-2'>";
+                        // Botón de cita médica
+                        echo "<form method='post' action='cita_medica.php' class='d-inline me-2'>";
                         echo "<input type='hidden' name='paciente_id' value='" . htmlspecialchars($row['id_paciente']) . "'>";
                         echo "<button type='submit' class='btn btn-success btn-sm'>Reservar cita médica</button>";
                         echo "</form>";
+
+                        // Botón de análisis clínico
+                        echo "<form method='post' action='./analisis_clinico/ver_analisis.php' class='d-inline'>";
+                        echo "<input type='hidden' name='id_paciente' value='" . htmlspecialchars($row['id_paciente']) . "'>";
+                        echo "<button type='submit' class='btn btn-primary btn-sm'>Analisis Clinico</button>";
+                        echo "</form>";
+
+                        // Internacion
+                        echo "<form method='post' action='ver_internacion.php' class='d-inline'>";
+                        echo "<input type='hidden' name='id_paciente' value='" . htmlspecialchars($row['id_paciente']) . "'>";
+                        echo "<button type='submit' class='btn btn-secondary btn-sm'>Ver Internación</button>";
+                        echo "</form>";
+
+                        echo "</div>";
+
                         echo "</li>";
                     }
                     echo "</ul>";
