@@ -1,16 +1,15 @@
 <?php
+   session_start();
+  //include_once('../../sesiones/verificar_acesso.php');
+  include('../../conexion.php');
 
-  session_start();
-  include_once('../sesiones/verificar_acesso.php');
-  include('../conexion.php');
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $paciente_id = $_POST['paciente_id'];
-} else {
-
-    header("Location: buscar_paciente.php");
-    exit();
-}
+  if (isset($_GET['id_paciente']) && is_numeric($_GET['id_paciente'])) {
+    $id_paciente = (int) $_GET['id_paciente'];
+    } else {
+        echo '<div class="container mt-5"><div class="alert alert-danger">No se proporcionó un paciente válido.</div></div>';
+        require_once('../../plantilla/footer.php');
+        exit;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -25,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="container mt-5">
         <h2 class="mb-4 text-primary">Reservar Cita Médica</h2>
         <form action="procesar_reserva.php" method="post">
-            <input type="hidden" name="paciente_id" value="<?php echo htmlspecialchars($paciente_id); ?>">
+            <input type="hidden" name="paciente_id" value="<?php echo htmlspecialchars($id_paciente); ?>">
             <div class="mb-3">
                 <label for="medico_id" class="form-label">Médico</label>
                 <select class="form-select" id="medico_id" name="medico_id" required>

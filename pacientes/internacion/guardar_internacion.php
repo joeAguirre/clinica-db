@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../conexion.php';
+require_once '../../conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id_paciente = $_POST['id_paciente'];
@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
            // echo "<div class='alert alert-danger'>Error: " . htmlspecialchars($e->getMessage()) . "</div>";
         }
 
-         header("Location: cargar_internacion.php");
+         header("Location: cargar_internacion.php?id_paciente=" . $id_paciente);
          exit;
     } else {
         echo "<div class='alert alert-warning'>Por favor complete todos los campos.</div>";

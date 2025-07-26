@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once '../conexion.php';
+require_once '../../conexion.php';
 
     if (isset($_POST['id_paciente']) && is_numeric($_POST['id_paciente'])) {
         $id_paciente = (int) $_POST['id_paciente'];
@@ -35,7 +35,7 @@ try {
 ?>
 
 <?php
-    include_once("../plantilla/header.php");
+    include_once("../../plantilla/header.php");
   
 ?>
 <body>
@@ -50,8 +50,11 @@ try {
     <?php endif; ?>
     
     <div class="">
-         <a class="btn btn-danger" href="./buscar_pacientes.php">Volver</a>
+         <a class="btn btn-danger" href="../buscar_pacientes.php">Volver</a>
          <h2 class="mb-4 text-center">Listado de Internaciones</h2>
+         <div class="d-flex justify-content-end">
+            <a class="btn btn-success my-2" href="./cargar_internacion.php?id_paciente=<?php echo $id_paciente; ?>">Cargar Internacion</a>
+        </div>
     </div>
     
 
@@ -97,7 +100,7 @@ try {
     </script>
 
 <?php
-    include_once('../plantilla/header.php');
+    include_once('../../plantilla/header.php');
 
 ?>
 

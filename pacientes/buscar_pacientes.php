@@ -46,7 +46,7 @@ error_reporting(E_ALL);
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" name="numero_afiliado">
                 <button class="btn btn-outline-light" type="submit">Buscar</button>
             </form>
-            <a href="../index.php" class="btn btn-secondary">Volver al inicio</a>
+            <a href="../index.php?page=pacientes" class="btn btn-secondary">Volver al inicio</a>
         </div>
 
 
@@ -84,9 +84,9 @@ error_reporting(E_ALL);
                         
                         echo "<div class='d-flex gap-2'>";
                         // Botón de cita médica
-                        echo "<form method='post' action='cita_medica.php' class='d-inline me-2'>";
+                        echo "<form method='post' action='./citas_medica/ver_citas.php' class='d-inline me-2'>";
                         echo "<input type='hidden' name='paciente_id' value='" . htmlspecialchars($row['id_paciente']) . "'>";
-                        echo "<button type='submit' class='btn btn-success btn-sm'>Reservar cita médica</button>";
+                        echo "<button type='submit' class='btn btn-success btn-sm'>Ver citas médicas</button>";
                         echo "</form>";
 
                         // Botón de análisis clínico
@@ -96,7 +96,7 @@ error_reporting(E_ALL);
                         echo "</form>";
 
                         // Internacion
-                        echo "<form method='post' action='ver_internacion.php' class='d-inline'>";
+                        echo "<form method='post' action='./internacion/ver_internacion.php' class='d-inline'>";
                         echo "<input type='hidden' name='id_paciente' value='" . htmlspecialchars($row['id_paciente']) . "'>";
                         echo "<button type='submit' class='btn btn-secondary btn-sm'>Ver Internación</button>";
                         echo "</form>";

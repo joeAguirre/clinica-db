@@ -1,13 +1,16 @@
 <?php
     session_start();
-    include_once('../sesiones/verificar_acesso.php');
+   // include_once('../sesiones/verificar_acesso.php');
+   include_once('../../conexion.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $paciente_id = $_POST['paciente_id'];
     $medico_id = $_POST['medico_id'];
     $fecha = $_POST['fecha'];
     $hora = $_POST['hora'];
-     include('../conexion.php');
+
+     
+
      try {
 
         $stmt = $conn->prepare("
@@ -20,10 +23,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':hora', $hora, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            echo "<div class='container mt-5'>";
-            echo "<div class='alert alert-success'>Cita médica reservada con éxito.</div>";
-            echo "<a href='buscar_pacientes.php' class='btn btn-primary'>Volver a la búsqueda de pacientes</a>";
-            echo "</div>";
+            $_SESSION['mensaje'] = 'Cita médica reservada con éxito.';
+            $_SESSION['tipo_mensaje'] = 'success';
+
+            header("Location: ./ver_citas.php?id_paciente=" . $paciente_id);
+            exit();
+            
         } else {
             echo "<div class='container mt-5'>";
             echo "<div class='alert alert-danger'>Error al reservar la cita médica.</div>";
@@ -38,20 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 } else {
     // Redireccionar si se intenta acceder directamente
-    header("Location: buscar_pacientes.php");
+    header("Location: ../buscar_pacientes.php");
     exit();
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Procesar Reserva</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+

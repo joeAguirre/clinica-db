@@ -1,7 +1,10 @@
 <?php
 session_start();
 // cargar_internacion.php
-require_once '../conexion.php';
+require_once '../../conexion.php';
+
+$id_paciente = isset($_GET['id_paciente']) ? $_GET['id_paciente'] : null;
+
 
 $sql = "SELECT p.id_paciente, per.nombre, per.apellido
         FROM pacientes p
@@ -28,6 +31,7 @@ $pacientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             ?>
         </div>
     <?php endif; ?>
+    <a class="btn btn-danger mb-4" href="ver_internacion.php?id_paciente=<?php echo $id_paciente; ?>">Volver</a>
     <h2 class="mb-4">Registrar Internación</h2>
     <form action="guardar_internacion.php" method="POST" class="card p-4 shadow rounded">
         <div class="mb-3">
@@ -35,7 +39,7 @@ $pacientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <select name="id_paciente" class="form-select" required>
                 <option value="">Seleccionar...</option>
                 <?php foreach ($pacientes as $paciente): ?>
-                    <option value="<?= $paciente['id_paciente'] ?>">
+                    <option value="<?= $paciente['id_paciente'] ?>" <?= ($id_paciente == $paciente['id_paciente']) ? 'selected' : '' ?>>
                         <?= htmlspecialchars($paciente['nombre'] . ' ' . $paciente['apellido']) ?>
                     </option>
                 <?php endforeach; ?>
@@ -61,6 +65,16 @@ $pacientes = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </form>
 
 </div>
+
+<script>
+
+        setTimeout(function() {
+            const mensaje = document.getElementById('mensaje-anuncio');
+            if (mensaje) {
+                mensaje.style.display = 'none';
+            }
+        },  3000); 
+    </script>
 
 </body>
 </html>

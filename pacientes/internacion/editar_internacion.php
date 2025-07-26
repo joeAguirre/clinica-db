@@ -1,5 +1,5 @@
 <?php
-require_once '../conexion.php';
+require_once '../../conexion.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("ID de internación no válido.");
@@ -16,6 +16,7 @@ try {
     $stmt->execute();
     $internacion = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    print_r($internacion);
     if (!$internacion) {
         die("Internación no encontrada.");
     }
@@ -37,6 +38,7 @@ try {
     <h3>Editar Internación</h3>
     <form action="actualizar_internacion.php" method="POST">
         <input type="hidden" name="id_internacion" value="<?php echo $internacion['id_internacion']; ?>">
+        <input type="hidden" name="id_paciente" value="<?php echo $internacion['id_paciente']; ?>">
 
 
         <div class="mb-3">

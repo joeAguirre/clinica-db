@@ -1,9 +1,11 @@
 <?php
 session_start();
-require_once '../conexion.php';
+require_once '../../conexion.php';
+
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_internacion = $_POST['id_internacion'];
+    $id_internacion = (int) $_POST['id_internacion'];
     $id_paciente = htmlspecialchars($_POST['id_paciente']);
     $fecha_ingreso = htmlspecialchars($_POST['fecha_ingreso']);
     $fecha_egreso = !empty($_POST['fecha_egreso']) ? htmlspecialchars($_POST['fecha_egreso']) : null;
@@ -28,7 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['mensaje'] = "registro actualizado correctamente.";
         $_SESSION['tipo_mensaje'] = "success";
 
-        header("Location: ver_internacion.php?id_paciente=" . $id_internacion);
+        echo "<br>";
+        echo $id_paciente;
+        echo "<br>";
+        echo $fecha_egreso;
+        echo $motivo;
+        header("Location: ver_internacion.php?id_paciente=" . $id_paciente);
         exit;
 
     } catch (PDOException $e) {
