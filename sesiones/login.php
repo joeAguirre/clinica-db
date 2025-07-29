@@ -2,6 +2,15 @@
 session_start();
 include '../conexion.php';
 include '../plantilla/header.php';
+
+$check = $conn->query("SELECT COUNT(*) as total FROM usuarios");
+$total = $check->fetch(PDO::FETCH_ASSOC)['total'];
+
+if ($total == 0) {
+    // Redirigimos a registro_unico.php si no hay usuarios
+    header("Location: registro_unico.php");
+    exit;
+}
 ?>
 
 <div class="container mt-5 d-flex justify-content-center flex-column">
@@ -15,9 +24,10 @@ include '../plantilla/header.php';
         </div>
     <?php endif; ?>
 
-    <h2 class="mb-4">Iniciar Sesión</h2>
+    <h2 class="mb-4 text-center">Iniciar Sesión</h2>
 
-    <form action="procesar_login.php" method="POST" class="needs-validation border p-4 rounded" novalidate>
+    <form action="procesar_login.php" method="POST" class="needs-validation border p-4 rounded" 
+    style="width: 40%; margin: auto; background-color: #0799b6;" novalidate>
         <div class="mb-3">
             <label for="username" class="form-label">Nombre de usuario</label>
             <input type="text" name="username" id="username" class="form-control" required>

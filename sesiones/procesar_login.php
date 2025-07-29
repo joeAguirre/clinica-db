@@ -23,6 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['usuario_id'] = $usuario['id_usuario'];
                 $_SESSION['username'] = $usuario['username'];
                 $_SESSION['rol'] = $usuario['rol_nombre']; 
+
+                switch ($_SESSION['rol']) {
+                    case 'paciente':
+                        header('Location: ../pacientes/buscar_pacientes.php');
+                        exit;
+                    case 'medico':
+                        header('Location: ../index.php?page=pacientes');
+                        exit;
+
+                    default:
+                        // Si no hay rol conocido, ir al index
+                        header('Location: ../index.php');
+                        exit;
+                }
             }
 
             //Mensaje
@@ -37,5 +51,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (Exception $e) {
         echo "Error al iniciar sesión: " . $e->getMessage();
     }
+} else {
+    $_SESSION['mensaje'] = "No se recibieron datos del formulario.";
+    $_SESSION['tipo_mensaje'] = "danger";
+    header("Location: login.php");
+    exit;
 }
 ?>

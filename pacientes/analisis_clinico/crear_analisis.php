@@ -1,7 +1,12 @@
 <?php
+include_once('../../sesiones/verificar_acesso.php');
 require_once '../../conexion.php';
 
 require_once('../../plantilla/header.php');
+
+if (isset($_GET['id_paciente']) && is_numeric($_GET['id_paciente'])) {
+    $id_paciente = (int) $_GET['id_paciente'];
+}
 
 // Obtener lista de pacientes para el select
 try {
@@ -24,11 +29,12 @@ try {
             <label for="id_paciente" class="form-label">Paciente</label>
             <select name="id_paciente" id="id_paciente" class="form-select" required>
                 <option value="">Seleccionar paciente</option>
-                <?php foreach ($pacientes as $p): ?>
-                    <option value="<?= $p['id_paciente'] ?>">
-                        <?= htmlspecialchars($p['apellido'] . ', ' . $p['nombre']) ?>
+                <?php foreach ($pacientes as $paciente): ?>
+                    <option value="<?= $paciente['id_paciente'] ?>" <?= ($id_paciente == $paciente['id_paciente']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($paciente['nombre'] . ' ' . $paciente['apellido']) ?>
                     </option>
                 <?php endforeach; ?>
+            </select>
             </select>
         </div>
 

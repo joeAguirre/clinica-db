@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once('../sesiones/verificar_acesso.php');
 include '../conexion.php';  
 include '../config.php';   
 
@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($check->fetch()) {
             $_SESSION['mensaje'] = "El nombre de usuario ya existe.";
             $_SESSION['tipo_mensaje'] = "danger";
+
+            
             header("Location: register.php");
             exit;
         }
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($success) {
             $_SESSION['mensaje'] = "Usuario registrado correctamente.";
             $_SESSION['tipo_mensaje'] = "success";
-            header("Location: login.php");
+            header("Location: register.php");
             exit;
         }
     } catch (\Throwable $th) {
@@ -37,5 +39,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
    
+} else {
+    $_SESSION['mensaje'] = "No se recibieron datos del formulario.";
+    $_SESSION['tipo_mensaje'] = "danger";
+    header("Location: register.php");
+    exit;
 }
 ?>

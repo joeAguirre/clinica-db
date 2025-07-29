@@ -7,14 +7,7 @@
         header('Location: ' . BASE_URL . '/sesiones/login.php');
         exit;
     }
-
-    if(isset($_SESSION['rol'])){
-        if($_SESSION['rol'] === "paciente"){
-            header("Location: " . BASE_URL . '/pacientes/buscar_pacientes.php');
-            exit;
-        }
-    }
-
+    
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
     error_reporting(E_ALL);
@@ -66,6 +59,13 @@
                     Empleados
                 </a>
             <?php endif; ?>
+            
+            <?php if ($_SESSION['rol'] === 'admin'): ?>
+                <a href="index.php?page=usuarios">
+                    <i class="fa-solid fa-user-tie logo-nav"></i>
+                    Usuarios
+                </a>
+            <?php endif; ?>
         </nav>
     </div>
     
@@ -85,8 +85,10 @@
                 break;
             
             case 'pacientes':
-                include('./inicio/pacientes.php');
-                break;
+                if ($_SESSION['rol'] === 'admin' || $_SESSION['rol'] === 'medico'):
+                    include('./inicio/pacientes.php');
+                    endif;
+                 break;
 
             case 'medicos':
                 if ($_SESSION['rol'] === 'admin'):
@@ -100,6 +102,13 @@
                 endif; 
                 break;
                 
+            case 'usuarios':
+                if ($_SESSION['rol'] === 'admin'):
+                    include('./inicio/usuarios.php');
+                endif; 
+                break;
+
+
             default:
                 echo "No se encontro la pagina solicitada";
                 break;

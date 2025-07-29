@@ -1,6 +1,6 @@
 <?php
-   session_start();
-  //include_once('../../sesiones/verificar_acesso.php');
+   include_once('../../sesiones/verificar_acesso.php');
+   
   include('../../conexion.php');
 
   if (isset($_GET['id_paciente']) && is_numeric($_GET['id_paciente'])) {

@@ -1,6 +1,6 @@
 <?php
-session_start();
-// cargar_internacion.php
+include_once('../../sesiones/verificar_acesso.php');
+
 require_once '../../conexion.php';
 
 $id_paciente = isset($_GET['id_paciente']) ? $_GET['id_paciente'] : null;

@@ -40,6 +40,15 @@ error_reporting(E_ALL);
 </head>
 <body>
   <div class="container search-container">
+  <?php if (isset($_SESSION['mensaje'])): ?>
+        <div id="mensaje-anuncio" class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?>">
+            <?php 
+                echo $_SESSION['mensaje']; 
+                unset($_SESSION['mensaje']);
+                unset($_SESSION['tipo_mensaje']);
+            ?>
+        </div>
+    <?php endif; ?>
         <div class="search-bar search-box text-center">
             <h2 class="mb-5">Buscar Pacientes</h2>
             <form method="POST" class="d-flex justify-content-center mb-3">
@@ -120,6 +129,14 @@ error_reporting(E_ALL);
         }
         ?>
     </div>
+    <script>
+    setTimeout(function() {
+        const mensaje = document.getElementById('mensaje-anuncio');
+        if (mensaje) {
+            mensaje.style.display = 'none';
+        }
+    }, 3000);
+</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

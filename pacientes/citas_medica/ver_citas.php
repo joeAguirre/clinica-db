@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once('../../sesiones/verificar_acesso.php');
 require_once '../../conexion.php';
 require_once('../../plantilla/header.php');
 

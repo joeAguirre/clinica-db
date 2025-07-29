@@ -1,11 +1,11 @@
 <?php
-session_start();
+include_once('../../sesiones/verificar_acesso.php');
 require_once '../../conexion.php';
 
 // Verificar si se recibió un ID válido
-if (!isset($_POST['id_cita']) || !is_numeric($_POST['id_cita'])) {
-    die("ID de la cita no válido.");
-}
+    if (!isset($_POST['id_cita']) || !is_numeric($_POST['id_cita'])) {
+        die("ID de la cita no válido.");
+    }
 
 if (!isset($_POST['id_paciente']) || !is_numeric($_POST['id_paciente'])) {
     die("ID del paciente no válido.");
@@ -15,13 +15,13 @@ $id_cita = (int) $_POST['id_cita'];
 $id_paciente = (int) $_POST['id_paciente'];
 
 // Validar y sanitizar campos
-$id_medico = isset($_POST['id_medico']) ? (int) $_POST['id_medico'] : 0;
-$fecha = trim($_POST['fecha'] ?? '');
-$hora = trim($_POST['hora'] ?? '');
+    $id_medico = isset($_POST['id_medico']) ? (int) $_POST['id_medico'] : 0;
+    $fecha = trim($_POST['fecha'] ?? '');
+    $hora = trim($_POST['hora'] ?? '');
 
-if (empty($fecha) || empty($hora) || $id_medico <= 0) {
-    die("Te falta rellenar campos.");
-}
+    if (empty($fecha) || empty($hora) || $id_medico <= 0) {
+        die("Te falta rellenar campos.");
+    }
 
 try {
     $stmt = $conn->prepare("

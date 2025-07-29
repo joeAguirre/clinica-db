@@ -1,6 +1,7 @@
 <?php
-session_start();
+
 require_once '../../conexion.php';
+include_once('../../sesiones/verificar_acesso.php');
 
 
 
@@ -41,4 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (PDOException $e) {
         die("Error al actualizar: " . $e->getMessage());
     }
+} else {
+    $_SESSION['mensaje'] = "No se proporcionaron datos de internacion";
+    $_SESSION['tipo_mensaje'] = "danger";
+    header("Location: ../buscar_pacientes.php");
+    exit;
 }

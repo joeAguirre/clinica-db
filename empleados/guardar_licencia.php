@@ -1,5 +1,4 @@
 <?php
-session_start();
 include_once('../sesiones/verificar_acesso.php');
 include_once('../conexion.php');
 
@@ -11,6 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['empleado_id'])) {
      $id_empleado_sustituto = isset($_POST['empleado_sustituto']) ? intval($_POST['empleado_sustituto']) : null;
 
     try {
+        //iniciar transaccion
+        $conn->beginTransaction(); 
+
         $sql = "INSERT INTO licencias (id_empleado, fecha_inicio, fecha_fin, motivo)
                 VALUES (:id_empleado, :fecha_inicio, :fecha_fin, :motivo)";
         $stmt = $conn->prepare($sql);
@@ -39,8 +41,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['empleado_id'])) {
           if ($conn && $conn->inTransaction()) {
             $conn->rollback();
         }
-         $_SESSION['mensaje'] = "Error al registrar licencia: " . $e->getMessage();
-         $_SESSION['tipo_mensaje'] = "danger";
+       //   $_SESSION['mensaje'] = "Error al registrar licencia: " . $e->getMessage();
+        // $_SESSION['tipo_mensaje'] = "danger";
+
+        echo "Error al registrar licencia: " . $e->getMessage();
     }
 
      header("Location: solicitar_licencia.php?empleado_id=$empleado_id");

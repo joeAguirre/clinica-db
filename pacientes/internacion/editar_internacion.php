@@ -1,4 +1,6 @@
 <?php
+include_once('../../sesiones/verificar_acesso.php');
+
 require_once '../../conexion.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
@@ -16,7 +18,7 @@ try {
     $stmt->execute();
     $internacion = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    print_r($internacion);
+    
     if (!$internacion) {
         die("Internación no encontrada.");
     }

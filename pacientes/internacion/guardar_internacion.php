@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once('../../sesiones/verificar_acesso.php');
 require_once '../../conexion.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -35,5 +35,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     } else {
         echo "<div class='alert alert-warning'>Por favor complete todos los campos.</div>";
     }
+} else {
+    $_SESSION['mensaje'] = "No se proporcionaron datos de internacion";
+    $_SESSION['tipo_mensaje'] = "danger";
+    header("Location: ../buscar_pacientes.php");
+    exit;
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once('../sesiones/verificar_acesso.php');
 include '../conexion.php';
 include '../plantilla/header.php';
 
@@ -18,6 +18,9 @@ try {
 ?>
 
 <div class="container mt-5 d-flex justify-content-center flex-column">
+<a href="../index.php?page=usuarios" class="btn btn-danger" style="width: 10%;">
+        Volver
+    </a>
 <?php if (isset($_SESSION['mensaje'])): ?>
         <div id="mensaje-anuncio"  class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?>">
             <?php 
@@ -26,9 +29,10 @@ try {
             ?>
         </div>
     <?php endif; ?>
-    <h2 class="mb-4">Registro de Usuario</h2>
+    
+    <h2 class="mb-4 text-center mt-2">Registro de Usuario</h2>
 
-    <form action="procesar_register.php" method="POST" class="needs-validation border p-4 rounded" novalidate>
+    <form action="procesar_register.php" method="POST" style="width: 70%; margin: auto;" class="needs-validation border p-4 rounded" novalidate>
         <div class="mb-3">
             <label for="username" class="form-label">Nombre de usuario</label>
             <input type="text" name="username" id="username" class="form-control" required />

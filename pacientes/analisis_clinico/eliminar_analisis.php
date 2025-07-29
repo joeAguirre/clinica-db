@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once('../../sesiones/verificar_acesso.php');
 require_once '../../conexion.php';
 
 if (!isset($_GET['id_analisis']) || !is_numeric($_GET['id_analisis'])) {

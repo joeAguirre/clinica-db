@@ -131,7 +131,7 @@
         <div class="botones">
             <button class="guardar" type="submit">Guardar</button>
             <button type="button">
-            <a href="../index.php">Volver </a>
+            <a href="../index.php?page=pacientes">Volver </a>
             </button>
             
         </div>

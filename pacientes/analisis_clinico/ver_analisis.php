@@ -1,5 +1,5 @@
 <?php
-session_start();
+include_once('../../sesiones/verificar_acesso.php');
 require_once '../../conexion.php';
 require_once('../../plantilla/header.php');
 
@@ -50,7 +50,7 @@ try {
          <a class="btn btn-danger" href="../buscar_pacientes.php">Volver</a>
          <h2 class="mb-4 text-center">Análisis Clínicos del Paciente</h2>
          <div class="d-flex justify-content-end">
-             <a class="btn btn-success" href="./crear_analisis.php">Agregar Analisis</a>
+             <a class="btn btn-success" href="./crear_analisis.php?id_paciente=<?php echo $id_paciente; ?>">Agregar Analisis</a>
          </div>
          
     </div>
