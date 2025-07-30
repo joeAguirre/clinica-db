@@ -19,13 +19,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clinica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
 </head>
 <body>
 
 
 <div class="container mt-5">
+    <?php if (isset($_SESSION['mensaje'])): ?>
+        <div id="mensaje-anuncio"  class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?>">
+            <?php 
+                echo $_SESSION['mensaje']; 
+                unset($_SESSION['mensaje']);
+            ?>
+        </div>
+    <?php endif; ?>
     <div class="row">
+         
         <div class="col-8 mx-auto">
+           <a class="btn btn-danger mb-4" href="../index.php?page=empleados">Volver</a>
             <h2 class="mb-4">Buscar empleados</h2>
             <form method="POST">
                 <div class="input-group mb-3">
@@ -85,6 +97,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['busqueda'])) {
                                 <a href="ver_cronograma.php?empleado_id=<?php echo $empleado['empleado_id']; ?>" class="btn btn-sm btn-info mx-2">
                                     Ver cronograma
                                 </a>
+                                 <a href="editar_empleado.php?id=<?php echo $empleado['empleado_id']; ?>" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                 <a href="eliminar_empleados.php?id=<?php echo $empleado['empleado_id']; ?>" class="btn mx-2 btn-sm btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                    </a>
                             </div>
                            
                             
@@ -102,6 +120,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['busqueda'])) {
 ?>
 
 
+    <script>
+
+        setTimeout(function() {
+            const mensaje = document.getElementById('mensaje-anuncio');
+            if (mensaje) {
+                mensaje.style.display = 'none';
+            }
+        },  3000); 
+    </script>
 
 <?php
    include('../plantilla/footer.php');

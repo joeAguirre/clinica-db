@@ -51,13 +51,14 @@
     </style>
 </head>
 <body>
-    <?php
-        if (isset($_SESSION['mensaje'])) {
-            echo '<p class="msg">' . htmlspecialchars($_SESSION['mensaje']) . '</p>';
-            unset($_SESSION['mensaje']);
-        }
-    
-    ?>
+      <?php if (isset($_SESSION['mensaje'])): ?>
+        <div id="mensaje-anuncio" class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?>">
+            <?php 
+                echo $_SESSION['mensaje']; 
+                unset($_SESSION['mensaje']);
+            ?>
+        </div>
+    <?php endif; ?>
     <div class="container formulario-medico">
         <h2 class="text-center">Agregar Médico</h2>
         <form action="./guardar_medicos.php" method="post">
@@ -119,13 +120,13 @@
                 <label for="codigo_medico" class="form-label">Codigo Medico</label>
                 <input type="text" class="form-control" id="codigo_medico" name="codigo_medico" required>
             </div>
-            <!-- <div class="mb-3">
+             <div class="mb-3">
                 <label for="estado" class="form-label">Estado</label>
                 <select class="form-select" id="estado" name="estado" required>
                     <option value=1>Activo</option>
                     <option value=0>Inactivo</option>
                 </select>
-            </div> -->
+            </div> 
             
             <div class="row">
                 <div class="mb-3 col-md-6">
@@ -152,6 +153,16 @@
             </div>
         </form>
     </div>
+
+    <script>
+
+        setTimeout(function() {
+            const mensaje = document.getElementById('mensaje-anuncio');
+            if (mensaje) {
+                mensaje.style.display = 'none';
+            }
+        },  3000); 
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>

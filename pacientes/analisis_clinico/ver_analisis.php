@@ -50,8 +50,11 @@ try {
          <a class="btn btn-danger" href="../buscar_pacientes.php">Volver</a>
          <h2 class="mb-4 text-center">Análisis Clínicos del Paciente</h2>
          <div class="d-flex justify-content-end">
-             <a class="btn btn-success" href="./crear_analisis.php?id_paciente=<?php echo $id_paciente; ?>">Agregar Analisis</a>
-         </div>
+            <!-- Denegar acceso a paciente -->
+             <?php if ($_SESSION['rol'] !== 'paciente'):  ?>
+                <a class="btn btn-success" href="./crear_analisis.php?id_paciente=<?php echo $id_paciente; ?>">Agregar Analisis</a>
+              <?php endif; ?>
+            </div>
          
     </div>
 
@@ -74,6 +77,8 @@ try {
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
                             <small class="text-muted">Fecha: <?php echo $a['fecha']; ?></small>
+                            <!-- Denegar acceso a paciente -->
+                            <?php if ($_SESSION['rol'] !== 'paciente'):  ?>
                             <div>
                                 <a href="editar_analisis.php?id=<?php echo $a['id_analisis']; ?>" class="btn btn-sm btn-primary">Editar</a>
                                 <a href="eliminar_analisis.php?id_analisis=<?php echo $a['id_analisis']; ?>" class="btn btn-sm btn-danger" 
@@ -81,6 +86,7 @@ try {
                                     Eliminar
                                 </a>
                             </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

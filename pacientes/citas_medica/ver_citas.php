@@ -54,7 +54,10 @@ try {
         <a class="btn btn-danger" href="../buscar_pacientes.php">Volver</a>
         <h2 class="mb-4 text-center">Citas Médicas del Paciente</h2>
         <div class="d-flex justify-content-end">
-            <a class="btn btn-success" href="./crear_cita.php?id_paciente=<?php echo $id_paciente; ?>">Agregar Cita</a>
+            <!-- Denegar acceso a paciente -->
+            <?php if ($_SESSION['rol'] !== 'paciente'):  ?>
+                <a class="btn btn-success" href="./crear_cita.php?id_paciente=<?php echo $id_paciente; ?>">Agregar Cita</a>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -72,6 +75,8 @@ try {
                             </p>
                         </div>
                         <div class="card-footer d-flex justify-content-between align-items-center">
+                            <!-- Denegar acceso a paciente -->
+                            <?php if ($_SESSION['rol'] !== 'paciente'):  ?>
                             <div>
                                 <a href="editar_cita.php?id=<?php echo $cita['id']; ?>" class="btn btn-sm btn-primary">Editar</a>
                                 <a href="eliminar_cita.php?id=<?php echo $cita['id']; ?>" class="btn btn-sm btn-danger"
@@ -79,6 +84,7 @@ try {
                                     Eliminar
                                 </a>
                             </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>

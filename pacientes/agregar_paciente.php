@@ -55,7 +55,8 @@
         $guardar_paciente = insertarPaciente($conn, $id_persona, $id_obra_social, $num_afiliado, $id_tipo_sangre);
         
         if ($guardar_paciente) {
-            $_SESSION['mensaje'] = 'Registro exitoso';
+            $_SESSION['mensaje'] = "Paciente guardado correctamente.";
+            $_SESSION['tipo_mensaje'] = "success";
 
             header("Location: ./formulario-carga.php");
             exit();

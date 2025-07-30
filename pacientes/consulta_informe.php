@@ -1,5 +1,4 @@
 <?php
-  session_start();
   include_once('../sesiones/verificar_acesso.php');
 
   include('../conexion.php');

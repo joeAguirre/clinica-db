@@ -4,13 +4,14 @@
      include_once('../conexion.php');
 ?>
 
-<?php
-     if (isset($_SESSION['mensaje'])) {
-        echo '<p class="msg">' . htmlspecialchars($_SESSION['mensaje']) . '</p>';
-        
-        unset($_SESSION['mensaje']);
-    }
-?>
+    <?php if (isset($_SESSION['mensaje'])): ?>
+        <div id="mensaje-anuncio" class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?>">
+            <?php 
+                echo $_SESSION['mensaje']; 
+                unset($_SESSION['mensaje']);
+            ?>
+        </div>
+    <?php endif; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +70,7 @@
         <div class="obra_social">
             <label>Obra Social</label>
             <?php
-                     include_once('../conexion.php');
+                     
 
                         $sql = "SELECT * FROM obra_social";
                         $stmt = $conn->prepare($sql);
@@ -102,7 +103,7 @@
         <div>
             <label>Tipo de sangre</label>
             <?php
-                    include_once('../conexion.php');
+                    
 
                     $sql = "SELECT * FROM tipo_sangre";
                     $stmt = $conn->prepare($sql);

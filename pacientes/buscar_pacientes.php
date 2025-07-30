@@ -13,6 +13,7 @@ error_reporting(E_ALL);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Busqueda en la Clínica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         .search-container {
             display: flex;
@@ -49,13 +50,20 @@ error_reporting(E_ALL);
             ?>
         </div>
     <?php endif; ?>
+         <!-- boton de cerrar sesion -->
+         <?php if ($_SESSION['rol'] === 'paciente'): ?>
+            <a href="../sesiones/cerrar_sesion.php" class="btn btn-danger" style="position: absolute; top: 15px; right: 15px">Cerrar Sesion</a>
+            <?php endif; ?>
         <div class="search-bar search-box text-center">
             <h2 class="mb-5">Buscar Pacientes</h2>
             <form method="POST" class="d-flex justify-content-center mb-3">
                 <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar" name="numero_afiliado">
                 <button class="btn btn-outline-light" type="submit">Buscar</button>
             </form>
-            <a href="../index.php?page=pacientes" class="btn btn-secondary">Volver al inicio</a>
+
+             <?php if ($_SESSION['rol'] !== 'paciente'):  ?>
+              <a href="../index.php?page=pacientes" class="btn btn-secondary">Volver al inicio</a>
+            <?php endif; ?>
         </div>
 
 
@@ -105,10 +113,23 @@ error_reporting(E_ALL);
                         echo "</form>";
 
                         // Internacion
-                        echo "<form method='post' action='./internacion/ver_internacion.php' class='d-inline'>";
-                        echo "<input type='hidden' name='id_paciente' value='" . htmlspecialchars($row['id_paciente']) . "'>";
-                        echo "<button type='submit' class='btn btn-secondary btn-sm'>Ver Internación</button>";
-                        echo "</form>";
+                         if ($_SESSION['rol'] !== 'paciente'):
+                            echo "<form method='post' action='./internacion/ver_internacion.php' class='d-inline'>";
+                            echo "<input type='hidden' name='id_paciente' value='" . htmlspecialchars($row['id_paciente']) . "'>";
+                            echo "<button type='submit' class='btn btn-secondary btn-sm'>Ver Internación</button>";
+                            echo "</form>";
+                        endif;
+                        ?>
+
+                         <?php if ($_SESSION['rol'] !== 'paciente'):  ?>
+                            <a href="editar_paciente.php?id=<?php echo $row['id_paciente']; ?>" class="btn btn-sm btn-primary">
+                                        <i class="bi bi-pencil-square"></i>
+                                        </a>
+                            <a href="eliminar_paciente.php?id=<?php echo $row['id_paciente']; ?>" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i>
+                                </a>
+                         <?php endif; ?>
+                        <?php
 
                         echo "</div>";
 
@@ -116,7 +137,7 @@ error_reporting(E_ALL);
                     }
                     echo "</ul>";
                 } else {
-                    echo "<p class='mt-3 text-warning'>No se encontraron resultados</p>";
+                    echo "<p class='mt-3 text-danger'>No se encontraron resultados</p>";
                 }
                 echo "</div>";
 
