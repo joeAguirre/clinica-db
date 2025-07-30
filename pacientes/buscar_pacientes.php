@@ -13,6 +13,7 @@ error_reporting(E_ALL);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Busqueda en la Clínica</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <style>
         .search-container {
             display: flex;
@@ -39,7 +40,16 @@ error_reporting(E_ALL);
     </style>
 </head>
 <body>
+   <?php if (isset($_SESSION['mensaje'])): ?>
+        <div id="mensaje-anuncio" class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?>">
+                <?php 
+                    echo $_SESSION['mensaje']; 
+                    unset($_SESSION['mensaje']);
+                ?>
+            </div>
+        <?php endif; ?>
   <div class="container search-container">
+         
         <div class="search-bar search-box text-center">
             <h2 class="mb-5">Buscar Pacientes</h2>
             <form method="POST" class="d-flex justify-content-center mb-3">
@@ -101,6 +111,17 @@ error_reporting(E_ALL);
                         echo "<button type='submit' class='btn btn-secondary btn-sm'>Ver Internación</button>";
                         echo "</form>";
 
+                        ?>
+
+                         <a href="editar_paciente.php?id=<?php echo $row['id_paciente']; ?>" class="btn btn-sm btn-primary">
+                                    <i class="bi bi-pencil-square"></i>
+                                    </a>
+                        <a href="eliminar_paciente.php?id=<?php echo $row['id_paciente']; ?>" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                            </a>
+
+                        <?php
+
                         echo "</div>";
 
                         echo "</li>";
@@ -120,6 +141,15 @@ error_reporting(E_ALL);
         }
         ?>
     </div>
+    <script>
+
+        setTimeout(function() {
+            const mensaje = document.getElementById('mensaje-anuncio');
+            if (mensaje) {
+                mensaje.style.display = 'none';
+            }
+        },  3000); 
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>

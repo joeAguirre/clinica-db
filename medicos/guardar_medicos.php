@@ -1,12 +1,11 @@
 <?php
- session_start();
  include_once('../sesiones/verificar_acesso.php');
 
 // Incluir archivo de conexión a la base de datos
 include_once('../conexion.php');
 include_once('../funciones/funcion-guardar.php');
 
-session_start();
+
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
@@ -44,11 +43,13 @@ error_reporting(E_ALL);
         // Insertar en la tabla departamentos
         $id_departamento = insertarDepartamento($conn, $departamento, $id_provincia);
 
+
         // Insertar en la tabla municipios
         $id_municipio = insertarMunicipio($conn, $municipio, $id_departamento);
 
+
         // Insertar en la tabla personas
-        $persona_id = insertarPersona($conn, $nombre, $apellido, $fecha_nacimiento, $direccion, $telefono, $email, null); 
+        $persona_id = insertarPersona($conn, $nombre, $apellido, $fecha_nacimiento, $direccion, $telefono, $email, $id_municipio); 
 
         // Insertar en la tabla empleados 
         $empleado_id = insertarEmpleado($conn, $persona_id, $estado);
@@ -61,6 +62,7 @@ error_reporting(E_ALL);
         $conn->commit();
 
         $_SESSION['mensaje'] = "Médico registrado correctamente.";
+        $_SESSION['tipo_mensaje'] = "success";
 
         //redirigir 
          header("location:./agregar_medicos.php");
@@ -70,6 +72,8 @@ error_reporting(E_ALL);
             $conn->rollback();
         }
     $_SESSION['mensaje'] = "Error al registrar medico: " . $e->getMessage();
+    $_SESSION['tipo_mensaje'] = "danger";
+
     header("location:./agregar_medicos.php");
     exit();
 }
